@@ -2,26 +2,26 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import styles from './Hero.module.css';
 
-// Using actual images from the original website
+// Using local hero background images
 const heroSlides = [
   {
-    image: 'https://advisewise.clicktobill.com/public/images/bg1.png',
+    image: '/images/hero/bg1.png',
     location: 'EUROPE',
   },
   {
-    image: 'https://advisewise.clicktobill.com/public/images/bg2.png',
+    image: '/images/hero/bg2.png',
     location: 'USA',
   },
   {
-    image: 'https://advisewise.clicktobill.com/public/images/bg3.png',
+    image: '/images/hero/bg3.png',
     location: 'LONDON',
   },
   {
-    image: 'https://advisewise.clicktobill.com/public/images/bg4.png',
+    image: '/images/hero/bg4.png',
     location: 'NEWZEALAND',
   },
   {
-    image: 'https://advisewise.clicktobill.com/public/images/bg5.png',
+    image: '/images/hero/bg5.png',
     location: 'CANADA',
   },
 ];

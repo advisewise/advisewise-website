@@ -1,10 +1,10 @@
 import { motion } from 'framer-motion';
 import styles from './UniversitiesMarquee.module.css';
 
-// Using actual university logos from the original website (21 logos)
+// Using local university logos (21 logos)
 const universities = Array.from({ length: 21 }, (_, i) => ({
   id: i,
-  logo: `https://advisewise.clicktobill.com/public/images/uni${i === 0 ? '' : i}.png`,
+  logo: `/images/universities/uni${i === 0 ? '' : i}.png`,
 }));
 
 const UniversitiesMarquee = () => {
