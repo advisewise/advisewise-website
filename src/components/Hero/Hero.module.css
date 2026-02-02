@@ -1,6 +1,6 @@
 .hero {
   --animation-duration: 2.5s;
-  --donut-outer: min(65vw, 65vh, 800px);
+  --donut-outer: min(50vw, 50vh, 580px);
   --donut-inner: calc(var(--donut-outer) * 0.5);
 
   position: relative;
@@ -15,130 +15,104 @@
 }
 
 /* Background Image Layer - full screen */
-.bgLayer {
+.backgroundImage {
   position: absolute;
   inset: 0;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  transform: scale(1) rotate(0deg);
+  filter: blur(0px);
   z-index: 1;
   will-change: transform, filter;
 }
 
-/* Foreground Layer with Donut Mask */
-.fgLayer {
+/* Exit: Image rotates 180°, scales 6.5x, blurs 15px */
+.backgroundImage.exitAnim {
+  animation: imageExit var(--animation-duration) ease-in-out both;
+}
+
+/* Enter: Image starts rotated/zoomed/blurred, returns to normal */
+.backgroundImage.enterAnim {
+  animation: imageEnter var(--animation-duration) ease-in-out both;
+}
+
+@keyframes imageExit {
+  0% {
+    transform: scale(1) rotate(0deg);
+    filter: blur(0px);
+  }
+  100% {
+    transform: scale(6.5) rotate(180deg);
+    filter: blur(15px);
+  }
+}
+
+@keyframes imageEnter {
+  0% {
+    transform: scale(6.5) rotate(180deg);
+    filter: blur(15px);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    filter: blur(0px);
+  }
+}
+
+/* Foreground Layer with Donut Mask - uses CSS mask-image */
+.foregroundImage {
   position: absolute;
   inset: 0;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   z-index: 2;
-  will-change: transform, filter;
+  will-change: transform;
 
   /* Donut mask - transparent center, visible ring, fades to transparent */
-  clip-path: circle(var(--donut-outer) at center);
   -webkit-mask-image: radial-gradient(
-    circle at 50% 50%,
-    transparent calc(var(--donut-inner) - 3px),
-    black calc(var(--donut-inner) + 3px),
-    black calc(var(--donut-outer) - 3px),
-    transparent calc(var(--donut-outer) + 3px)
+    circle at center,
+    transparent 0%,
+    transparent calc(var(--donut-inner) - 5px),
+    black calc(var(--donut-inner) + 5px),
+    black calc(var(--donut-outer) - 5px),
+    transparent var(--donut-outer)
   );
   mask-image: radial-gradient(
-    circle at 50% 50%,
-    transparent calc(var(--donut-inner) - 3px),
-    black calc(var(--donut-inner) + 3px),
-    black calc(var(--donut-outer) - 3px),
-    transparent calc(var(--donut-outer) + 3px)
-  );
-}
-
-/* Donut rotating overlay layer */
-.donutLayer {
-  position: absolute;
-  inset: 0;
-  z-index: 3;
-  pointer-events: none;
-  will-change: transform, filter;
-
-  /* Create a subtle ring effect */
-  background: radial-gradient(
-    circle at 50% 50%,
+    circle at center,
+    transparent 0%,
     transparent calc(var(--donut-inner) - 5px),
-    rgba(255, 255, 255, 0.05) calc(var(--donut-inner)),
-    rgba(255, 255, 255, 0.02) calc(var(--donut-inner) + 20px),
-    transparent calc(var(--donut-outer) - 20px),
-    rgba(255, 255, 255, 0.02) calc(var(--donut-outer)),
-    transparent calc(var(--donut-outer) + 5px)
+    black calc(var(--donut-inner) + 5px),
+    black calc(var(--donut-outer) - 5px),
+    transparent var(--donut-outer)
   );
 }
 
-/* OUT Animation - rotate 180deg, scale 6.5x, blur 15px */
-.bgLayer.animateOut,
-.fgLayer.animateOut {
-  animation: outEffect var(--animation-duration) ease-in-out forwards;
+/* Foreground Exit: rotates -180° (opposite to background) */
+.foregroundImage.exitAnim {
+  animation: donutExit var(--animation-duration) ease-in-out both;
 }
 
-/* IN Animation - reverse of out */
-.bgLayer.animateIn,
-.fgLayer.animateIn {
-  animation: inEffect var(--animation-duration) ease-in-out forwards;
+/* Foreground Enter: rotates from -180° back to 0° */
+.foregroundImage.enterAnim {
+  animation: donutEnter var(--animation-duration) ease-in-out both;
 }
 
-/* Donut rotates opposite direction */
-.donutLayer.donutOut {
-  animation: donutOutEffect var(--animation-duration) ease-in-out forwards;
-}
-
-.donutLayer.donutIn {
-  animation: donutInEffect var(--animation-duration) ease-in-out forwards;
-}
-
-@keyframes outEffect {
+@keyframes donutExit {
   0% {
-    transform: rotate(0deg) scale(1);
-    filter: blur(0px);
-    opacity: 1;
+    transform: rotate(0deg);
   }
   100% {
-    transform: rotate(180deg) scale(6.5);
-    filter: blur(15px);
-    opacity: 1;
+    transform: rotate(-180deg);
   }
 }
 
-@keyframes inEffect {
+@keyframes donutEnter {
   0% {
-    transform: rotate(180deg) scale(6.5);
-    filter: blur(15px);
-    opacity: 1;
+    transform: rotate(-180deg);
   }
   100% {
-    transform: rotate(0deg) scale(1);
-    filter: blur(0px);
-    opacity: 1;
-  }
-}
-
-@keyframes donutOutEffect {
-  0% {
-    transform: rotate(0deg) scale(1);
-    filter: blur(0px);
-  }
-  100% {
-    transform: rotate(-180deg) scale(1);
-    filter: blur(15px);
-  }
-}
-
-@keyframes donutInEffect {
-  0% {
-    transform: rotate(-180deg) scale(1);
-    filter: blur(15px);
-  }
-  100% {
-    transform: rotate(0deg) scale(1);
-    filter: blur(0px);
+    transform: rotate(0deg);
   }
 }
 
@@ -146,7 +120,7 @@
 .vignette {
   position: absolute;
   inset: 0;
-  z-index: 4;
+  z-index: 3;
   background: radial-gradient(
     circle at center,
     transparent 0%,
@@ -162,7 +136,7 @@
   position: absolute;
   inset: 0;
   background: rgba(0, 0, 0, 0.28);
-  z-index: 4;
+  z-index: 3;
   pointer-events: none;
 }
 
@@ -309,58 +283,49 @@
 @media (max-width: 768px) {
   .hero {
     --donut-outer: min(80vw, 80vh, 400px);
-    --animation-duration: 2s;
   }
 
   .content {
     padding: 0 20px;
   }
 
-  @keyframes outEffect {
+  @keyframes imageExit {
     0% {
-      transform: rotate(0deg) scale(1);
-      filter: blur(0px);
-      opacity: 1;
-    }
-    100% {
-      transform: rotate(90deg) scale(4);
-      filter: blur(10px);
-      opacity: 1;
-    }
-  }
-
-  @keyframes inEffect {
-    0% {
-      transform: rotate(90deg) scale(4);
-      filter: blur(10px);
-      opacity: 1;
-    }
-    100% {
-      transform: rotate(0deg) scale(1);
-      filter: blur(0px);
-      opacity: 1;
-    }
-  }
-
-  @keyframes donutOutEffect {
-    0% {
-      transform: rotate(0deg) scale(1);
+      transform: scale(1) rotate(0deg);
       filter: blur(0px);
     }
     100% {
-      transform: rotate(-90deg) scale(1);
+      transform: scale(4) rotate(90deg);
       filter: blur(10px);
     }
   }
 
-  @keyframes donutInEffect {
+  @keyframes imageEnter {
     0% {
-      transform: rotate(-90deg) scale(1);
+      transform: scale(4) rotate(90deg);
       filter: blur(10px);
     }
     100% {
-      transform: rotate(0deg) scale(1);
+      transform: scale(1) rotate(0deg);
       filter: blur(0px);
+    }
+  }
+
+  @keyframes donutExit {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(-90deg);
+    }
+  }
+
+  @keyframes donutEnter {
+    0% {
+      transform: rotate(-90deg);
+    }
+    100% {
+      transform: rotate(0deg);
     }
   }
 }

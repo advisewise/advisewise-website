@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import styles from './Hero.module.css';
 
@@ -28,79 +28,44 @@ const heroSlides = [
 
 const Hero = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [animationState, setAnimationState] = useState('idle'); // 'idle', 'out', 'in'
-  const [imagesLoaded, setImagesLoaded] = useState(false);
-
-  // Preload all hero images on mount
-  useEffect(() => {
-    let loadedCount = 0;
-    const totalImages = heroSlides.length;
-
-    heroSlides.forEach((slide) => {
-      const img = new Image();
-      img.onload = () => {
-        loadedCount++;
-        if (loadedCount === totalImages) {
-          setImagesLoaded(true);
-        }
-      };
-      img.src = slide.image;
-    });
-  }, []);
+  const [isExiting, setIsExiting] = useState(false);
+  const [isEntering, setIsEntering] = useState(false);
 
   useEffect(() => {
-    if (!imagesLoaded) return;
+    const interval = setInterval(() => {
+      // Start exit animation
+      setIsExiting(true);
+      setIsEntering(false);
 
-    const runAnimation = () => {
-      // Start OUT animation
-      setAnimationState('out');
-
-      // After out animation (2.5s), switch image and start IN animation
+      // After exit animation (2.5s), switch image and start entry
       setTimeout(() => {
         setCurrentIndex((prev) => (prev + 1) % heroSlides.length);
-        setAnimationState('in');
+        setIsExiting(false);
+        setIsEntering(true);
       }, 2500);
 
-      // After in animation (another 2.5s), go back to idle
+      // After entry animation (another 2.5s), reset
       setTimeout(() => {
-        setAnimationState('idle');
+        setIsEntering(false);
       }, 5000);
-    };
 
-    // Initial delay before first animation
-    const initialDelay = setTimeout(() => {
-      runAnimation();
-    }, 1500);
+    }, 7500); // Full cycle
 
-    // Set up interval for continuous animation
-    // Total cycle: 1.5s pause + 2.5s out + 2.5s in = 6.5s
-    const interval = setInterval(() => {
-      runAnimation();
-    }, 6500);
-
-    return () => {
-      clearTimeout(initialDelay);
-      clearInterval(interval);
-    };
-  }, [imagesLoaded]);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <section id="home" className={styles.hero}>
-      {/* Background Image Layer */}
+      {/* Background Image Layer - rotates and zooms out */}
       <div
-        className={`${styles.bgLayer} ${animationState === 'out' ? styles.animateOut : ''} ${animationState === 'in' ? styles.animateIn : ''}`}
+        className={`${styles.backgroundImage} ${isExiting ? styles.exitAnim : ''} ${isEntering ? styles.enterAnim : ''}`}
         style={{ backgroundImage: `url(${heroSlides[currentIndex].image})` }}
       />
 
-      {/* Foreground Image Layer with Donut Mask */}
+      {/* Foreground Image Layer with Donut Mask - counter-rotates */}
       <div
-        className={`${styles.fgLayer} ${animationState === 'out' ? styles.animateOut : ''} ${animationState === 'in' ? styles.animateIn : ''}`}
+        className={`${styles.foregroundImage} ${isExiting ? styles.exitAnim : ''} ${isEntering ? styles.enterAnim : ''}`}
         style={{ backgroundImage: `url(${heroSlides[currentIndex].image})` }}
-      />
-
-      {/* Donut rotating layer */}
-      <div
-        className={`${styles.donutLayer} ${animationState === 'out' ? styles.donutOut : ''} ${animationState === 'in' ? styles.donutIn : ''}`}
       />
 
       {/* Vignette Overlay for depth */}
