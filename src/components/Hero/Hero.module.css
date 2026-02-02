@@ -282,11 +282,21 @@
 /* Responsive */
 @media (max-width: 768px) {
   .hero {
-    --donut-outer: min(80vw, 80vh, 400px);
+    --donut-outer: min(70vw, 50vh, 300px);
+    --donut-inner: calc(var(--donut-outer) * 0.45);
   }
 
   .content {
     padding: 0 20px;
+  }
+
+  .titleMain {
+    font-size: clamp(2rem, 12vw, 3.5rem);
+  }
+
+  .subtitle {
+    font-size: 0.9rem;
+    padding: 0 10px;
   }
 
   @keyframes imageExit {
@@ -327,5 +337,30 @@
     100% {
       transform: rotate(0deg);
     }
+  }
+}
+
+/* Extra small screens */
+@media (max-width: 480px) {
+  .hero {
+    --donut-outer: min(65vw, 45vh, 220px);
+    --donut-inner: calc(var(--donut-outer) * 0.4);
+  }
+
+  .titleMain {
+    font-size: clamp(1.8rem, 10vw, 2.5rem);
+  }
+
+  .titleSmall {
+    font-size: 1rem;
+  }
+
+  .subtitle {
+    font-size: 0.85rem;
+  }
+
+  .ctaBtn {
+    padding: 12px 28px;
+    font-size: 14px;
   }
 }
