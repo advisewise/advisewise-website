@@ -21,37 +21,19 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  transform: scale(1) rotate(0deg);
-  filter: blur(0px);
   z-index: 1;
   will-change: transform, filter, opacity;
-  opacity: 1;
 }
 
-/* Next image layer - starts hidden */
-.backgroundImage.nextImage {
-  opacity: 0;
-  z-index: 0;
+/* Zoom out animation during transition */
+.backgroundImage.zoomOut {
+  animation: zoomOutVanish var(--animation-duration) ease-in-out forwards;
 }
 
-/* Exit: Current image rotates 180°, scales 6.5x, blurs 15px and fades out */
-.backgroundImage.exitAnim {
-  animation: imageExit var(--animation-duration) ease-in-out both;
-}
-
-/* Fade in: Next image fades in while animating from zoomed/rotated state */
-.backgroundImage.fadeIn {
-  animation: imageFadeIn var(--animation-duration) ease-in-out both;
-  z-index: 1;
-}
-
-@keyframes imageExit {
+@keyframes zoomOutVanish {
   0% {
     transform: scale(1) rotate(0deg);
     filter: blur(0px);
-    opacity: 1;
-  }
-  50% {
     opacity: 1;
   }
   100% {
@@ -61,23 +43,7 @@
   }
 }
 
-@keyframes imageFadeIn {
-  0% {
-    transform: scale(6.5) rotate(-180deg);
-    filter: blur(15px);
-    opacity: 0;
-  }
-  50% {
-    opacity: 1;
-  }
-  100% {
-    transform: scale(1) rotate(0deg);
-    filter: blur(0px);
-    opacity: 1;
-  }
-}
-
-/* Foreground Layer with Donut Mask - uses CSS mask-image */
+/* Foreground Layer with Donut Mask */
 .foregroundImage {
   position: absolute;
   inset: 0;
@@ -85,8 +51,7 @@
   background-position: center;
   background-repeat: no-repeat;
   z-index: 2;
-  will-change: transform, opacity;
-  opacity: 1;
+  will-change: transform, filter, opacity;
 
   /* Donut mask - transparent center, visible ring, fades to transparent */
   -webkit-mask-image: radial-gradient(
@@ -107,48 +72,40 @@
   );
 }
 
-/* Next foreground layer - starts hidden */
-.foregroundImage.nextImage {
-  opacity: 0;
-  z-index: 1;
+/* Foreground zooms out during transition */
+.foregroundImage.zoomOut {
+  animation: zoomOutVanish var(--animation-duration) ease-in-out forwards;
 }
 
-/* Foreground Exit: rotates -180° (opposite to background) and fades out */
-.foregroundImage.exitAnim {
-  animation: donutExit var(--animation-duration) ease-in-out both;
+/* Continuously rotating donut ring overlay */
+.donutRing {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+
+  /* Create the donut ring shape with a border effect */
+  background: radial-gradient(
+    circle at center,
+    transparent 0%,
+    transparent calc(var(--donut-inner) - 2px),
+    rgba(255, 255, 255, 0.1) calc(var(--donut-inner)),
+    transparent calc(var(--donut-inner) + 2px),
+    transparent calc(var(--donut-outer) - 2px),
+    rgba(255, 255, 255, 0.1) calc(var(--donut-outer)),
+    transparent calc(var(--donut-outer) + 2px)
+  );
+
+  /* Continuous rotation animation - starts immediately */
+  animation: continuousRotate 8s linear infinite;
 }
 
-/* Foreground fade in: rotates from -180° to 0° */
-.foregroundImage.fadeIn {
-  animation: donutFadeIn var(--animation-duration) ease-in-out both;
-  z-index: 2;
-}
-
-@keyframes donutExit {
+@keyframes continuousRotate {
   0% {
     transform: rotate(0deg);
-    opacity: 1;
-  }
-  50% {
-    opacity: 1;
   }
   100% {
-    transform: rotate(-180deg);
-    opacity: 0;
-  }
-}
-
-@keyframes donutFadeIn {
-  0% {
-    transform: rotate(180deg);
-    opacity: 0;
-  }
-  50% {
-    opacity: 1;
-  }
-  100% {
-    transform: rotate(0deg);
-    opacity: 1;
+    transform: rotate(360deg);
   }
 }
 
@@ -156,7 +113,7 @@
 .vignette {
   position: absolute;
   inset: 0;
-  z-index: 3;
+  z-index: 4;
   background: radial-gradient(
     circle at center,
     transparent 0%,
@@ -172,7 +129,7 @@
   position: absolute;
   inset: 0;
   background: rgba(0, 0, 0, 0.28);
-  z-index: 3;
+  z-index: 4;
   pointer-events: none;
 }
 
@@ -326,13 +283,10 @@
     padding: 0 20px;
   }
 
-  @keyframes imageExit {
+  @keyframes zoomOutVanish {
     0% {
       transform: scale(1) rotate(0deg);
       filter: blur(0px);
-      opacity: 1;
-    }
-    50% {
       opacity: 1;
     }
     100% {
@@ -342,47 +296,7 @@
     }
   }
 
-  @keyframes imageFadeIn {
-    0% {
-      transform: scale(4) rotate(-90deg);
-      filter: blur(10px);
-      opacity: 0;
-    }
-    50% {
-      opacity: 1;
-    }
-    100% {
-      transform: scale(1) rotate(0deg);
-      filter: blur(0px);
-      opacity: 1;
-    }
-  }
-
-  @keyframes donutExit {
-    0% {
-      transform: rotate(0deg);
-      opacity: 1;
-    }
-    50% {
-      opacity: 1;
-    }
-    100% {
-      transform: rotate(-90deg);
-      opacity: 0;
-    }
-  }
-
-  @keyframes donutFadeIn {
-    0% {
-      transform: rotate(90deg);
-      opacity: 0;
-    }
-    50% {
-      opacity: 1;
-    }
-    100% {
-      transform: rotate(0deg);
-      opacity: 1;
-    }
+  .donutRing {
+    animation: continuousRotate 6s linear infinite;
   }
 }

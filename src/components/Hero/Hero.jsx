@@ -28,8 +28,7 @@ const heroSlides = [
 
 const Hero = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [nextIndex, setNextIndex] = useState(1);
-  const [isAnimating, setIsAnimating] = useState(false);
+  const [isTransitioning, setIsTransitioning] = useState(false);
   const [imagesLoaded, setImagesLoaded] = useState(false);
   const preloadedImages = useRef([]);
 
@@ -55,50 +54,36 @@ const Hero = () => {
     if (!imagesLoaded) return;
 
     const interval = setInterval(() => {
-      // Start animation - both layers animate together
-      setIsAnimating(true);
+      // Start transition animation
+      setIsTransitioning(true);
 
-      // At the midpoint (1.25s), swap the images
+      // After transition completes (2.5s), switch to next image and reset
       setTimeout(() => {
-        setCurrentIndex(nextIndex);
-        setNextIndex((nextIndex + 1) % heroSlides.length);
-      }, 1250);
-
-      // After full animation (2.5s), reset
-      setTimeout(() => {
-        setIsAnimating(false);
+        setCurrentIndex((prev) => (prev + 1) % heroSlides.length);
+        setIsTransitioning(false);
       }, 2500);
 
-    }, 5000); // Full cycle: 2.5s visible + 2.5s animation
+    }, 5000); // 2.5s visible + 2.5s transition
 
     return () => clearInterval(interval);
-  }, [imagesLoaded, nextIndex]);
+  }, [imagesLoaded]);
 
   return (
     <section id="home" className={styles.hero}>
-      {/* Current Background Image Layer */}
+      {/* Background Image Layer - zooms and blurs during transition */}
       <div
-        className={`${styles.backgroundImage} ${isAnimating ? styles.exitAnim : ''}`}
+        className={`${styles.backgroundImage} ${isTransitioning ? styles.zoomOut : ''}`}
         style={{ backgroundImage: `url(${heroSlides[currentIndex].image})` }}
       />
 
-      {/* Next Background Image Layer - fades in during transition */}
+      {/* Foreground Image Layer with Donut Mask - continuously rotates */}
       <div
-        className={`${styles.backgroundImage} ${styles.nextImage} ${isAnimating ? styles.fadeIn : ''}`}
-        style={{ backgroundImage: `url(${heroSlides[nextIndex].image})` }}
-      />
-
-      {/* Current Foreground Image Layer with Donut Mask */}
-      <div
-        className={`${styles.foregroundImage} ${isAnimating ? styles.exitAnim : ''}`}
+        className={`${styles.foregroundImage} ${isTransitioning ? styles.zoomOut : ''}`}
         style={{ backgroundImage: `url(${heroSlides[currentIndex].image})` }}
       />
 
-      {/* Next Foreground Image Layer - fades in during transition */}
-      <div
-        className={`${styles.foregroundImage} ${styles.nextImage} ${isAnimating ? styles.fadeIn : ''}`}
-        style={{ backgroundImage: `url(${heroSlides[nextIndex].image})` }}
-      />
+      {/* Donut Ring - continuously rotating */}
+      <div className={styles.donutRing} />
 
       {/* Vignette Overlay for depth */}
       <div className={styles.vignette} />
