@@ -1,0 +1,90 @@
+.section {
+  padding: 5rem 0;
+  background: var(--bg-primary);
+  overflow: hidden;
+}
+
+.container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+.content {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.subtitle {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 0.75rem;
+}
+
+.title {
+  font-family: 'Schibsted Grotesk', sans-serif;
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 1rem;
+}
+
+.description {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.7);
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.imagesRow {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.imageWrapper {
+  flex: 0 0 auto;
+}
+
+.image {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 1rem;
+  transition: transform 0.3s ease;
+}
+
+.image:hover {
+  transform: scale(1.05);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .image {
+    width: 150px;
+    height: 150px;
+  }
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 3rem 0;
+  }
+
+  .container {
+    padding: 0 20px;
+  }
+
+  .imagesRow {
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .image {
+    width: 120px;
+    height: 120px;
+  }
+}

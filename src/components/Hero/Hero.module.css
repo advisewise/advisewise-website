@@ -1,0 +1,331 @@
+.hero {
+  --animation-duration: 2.5s;
+  --donut-outer: min(50vw, 50vh, 580px);
+  --donut-inner: calc(var(--donut-outer) * 0.5);
+
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #0b0f14;
+}
+
+/* Background Image Layer - full screen */
+.backgroundImage {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transform: scale(1) rotate(0deg);
+  filter: blur(0px);
+  z-index: 1;
+  will-change: transform, filter;
+}
+
+/* Exit: Image rotates 180°, scales 6.5x, blurs 15px */
+.backgroundImage.exitAnim {
+  animation: imageExit var(--animation-duration) ease-in-out both;
+}
+
+/* Enter: Image starts rotated/zoomed/blurred, returns to normal */
+.backgroundImage.enterAnim {
+  animation: imageEnter var(--animation-duration) ease-in-out both;
+}
+
+@keyframes imageExit {
+  0% {
+    transform: scale(1) rotate(0deg);
+    filter: blur(0px);
+  }
+  100% {
+    transform: scale(6.5) rotate(180deg);
+    filter: blur(15px);
+  }
+}
+
+@keyframes imageEnter {
+  0% {
+    transform: scale(6.5) rotate(180deg);
+    filter: blur(15px);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    filter: blur(0px);
+  }
+}
+
+/* Foreground Layer with Donut Mask - uses CSS mask-image */
+.foregroundImage {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 2;
+  will-change: transform;
+
+  /* Donut mask - transparent center, visible ring, fades to transparent */
+  -webkit-mask-image: radial-gradient(
+    circle at center,
+    transparent 0%,
+    transparent calc(var(--donut-inner) - 5px),
+    black calc(var(--donut-inner) + 5px),
+    black calc(var(--donut-outer) - 5px),
+    transparent var(--donut-outer)
+  );
+  mask-image: radial-gradient(
+    circle at center,
+    transparent 0%,
+    transparent calc(var(--donut-inner) - 5px),
+    black calc(var(--donut-inner) + 5px),
+    black calc(var(--donut-outer) - 5px),
+    transparent var(--donut-outer)
+  );
+}
+
+/* Foreground Exit: rotates -180° (opposite to background) */
+.foregroundImage.exitAnim {
+  animation: donutExit var(--animation-duration) ease-in-out both;
+}
+
+/* Foreground Enter: rotates from -180° back to 0° */
+.foregroundImage.enterAnim {
+  animation: donutEnter var(--animation-duration) ease-in-out both;
+}
+
+@keyframes donutExit {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(-180deg);
+  }
+}
+
+@keyframes donutEnter {
+  0% {
+    transform: rotate(-180deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+/* Vignette overlay for depth */
+.vignette {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  background: radial-gradient(
+    circle at center,
+    transparent 0%,
+    transparent var(--donut-inner),
+    rgba(0, 0, 0, 0.3) var(--donut-outer),
+    rgba(0, 0, 0, 0.6) 100%
+  );
+  pointer-events: none;
+}
+
+/* Overlay - 28% darkness */
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.28);
+  z-index: 3;
+  pointer-events: none;
+}
+
+/* Content */
+.content {
+  position: relative;
+  z-index: 10;
+  max-width: 1440px;
+  width: 100%;
+  padding: 0 40px;
+  text-align: center;
+}
+
+.textContent {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.title {
+  margin-bottom: 24px;
+}
+
+.titleSmall {
+  display: block;
+  font-family: 'Schibsted Grotesk', sans-serif;
+  font-size: clamp(1.25rem, 3vw, 2rem);
+  font-weight: 500;
+  color: #ffffff;
+  margin-bottom: 8px;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.titleMain {
+  display: block;
+  font-family: 'Audiowide', cursive;
+  font-size: clamp(3rem, 10vw, 101px);
+  font-weight: 400;
+  color: #ffffff;
+  line-height: 1.1;
+  text-transform: uppercase;
+  text-shadow: 0 2px 0 rgba(255, 255, 255, 1), 0 8px 22px rgba(0, 0, 0, 0.5);
+}
+
+.subtitle {
+  font-family: 'DM Sans', sans-serif;
+  font-size: clamp(0.875rem, 2vw, 1.125rem);
+  color: #f0f0f0 !important;
+  max-width: 600px;
+  margin: 0 auto 32px;
+  line-height: 1.7;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* CTA Button */
+.ctaBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 40px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: #ffffff;
+  background: #000000;
+  border-radius: 50px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.ctaBtn:hover {
+  transform: translateY(-3px);
+  background: linear-gradient(90deg, #6549F6, #f55d3c);
+  box-shadow: 0 12px 40px rgba(101, 73, 246, 0.5);
+}
+
+.ctaBtn svg {
+  transition: transform 0.3s ease;
+}
+
+.ctaBtn:hover svg {
+  transform: translateX(4px);
+}
+
+/* Testimonial Card */
+.testimonialCard {
+  position: absolute;
+  bottom: 10%;
+  left: 5%;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 24px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 100px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  z-index: 10;
+}
+
+@media (max-width: 768px) {
+  .testimonialCard {
+    display: none;
+  }
+}
+
+.testimonialImages {
+  display: flex;
+}
+
+.testimonialImg {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #f76bcd;
+  margin-left: -12px;
+}
+
+.testimonialImg:first-child {
+  margin-left: 0;
+}
+
+.testimonialText {
+  display: flex;
+  flex-direction: column;
+}
+
+.testimonialCount {
+  font-family: 'Schibsted Grotesk', sans-serif;
+  font-size: 24px;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.testimonialLabel {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hero {
+    --donut-outer: min(80vw, 80vh, 400px);
+  }
+
+  .content {
+    padding: 0 20px;
+  }
+
+  @keyframes imageExit {
+    0% {
+      transform: scale(1) rotate(0deg);
+      filter: blur(0px);
+    }
+    100% {
+      transform: scale(4) rotate(90deg);
+      filter: blur(10px);
+    }
+  }
+
+  @keyframes imageEnter {
+    0% {
+      transform: scale(4) rotate(90deg);
+      filter: blur(10px);
+    }
+    100% {
+      transform: scale(1) rotate(0deg);
+      filter: blur(0px);
+    }
+  }
+
+  @keyframes donutExit {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(-90deg);
+    }
+  }
+
+  @keyframes donutEnter {
+    0% {
+      transform: rotate(-90deg);
+    }
+    100% {
+      transform: rotate(0deg);
+    }
+  }
+}

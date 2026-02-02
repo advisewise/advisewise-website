@@ -1,0 +1,437 @@
+.loginPage {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  background-image: url('/images/background.png');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.formContainer {
+  display: flex;
+  width: 70%;
+  max-width: 95%;
+  height: 80vh;
+  border-radius: 15px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* Left Side - Steps */
+.formLeft {
+  width: 35%;
+  margin: 2%;
+  padding: clamp(20px, 4vw, 40px) clamp(10px, 2vw, 20px);
+  color: #fff;
+  background: rgba(70, 63, 63, 0.205);
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+}
+
+.logo {
+  margin-bottom: clamp(20px, 3vw, 30px);
+}
+
+.logo img {
+  height: clamp(40px, 5vw, 60px);
+  width: auto;
+  object-fit: contain;
+}
+
+.formLeft h2 {
+  font-family: 'Schibsted Grotesk', sans-serif;
+  margin-bottom: clamp(20px, 3vw, 40px);
+  font-size: clamp(18px, 2.5vw, 22px);
+  font-weight: 700;
+}
+
+.steps {
+  list-style: none;
+  margin: clamp(10px, 2vw, 20px) 0;
+  padding: 0;
+  position: relative;
+}
+
+.steps li {
+  position: relative;
+  margin: clamp(30px, 5vw, 50px) 0;
+  padding-left: clamp(25px, 3vw, 35px);
+  font-family: 'DM Sans', sans-serif;
+  font-size: clamp(14px, 2vw, 16px);
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.steps li:hover {
+  opacity: 0.8;
+}
+
+.steps li span {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: clamp(20px, 2.5vw, 25px);
+  height: clamp(20px, 2.5vw, 25px);
+  line-height: clamp(20px, 2.5vw, 25px);
+  border-radius: 50%;
+  background: #fff;
+  color: #0000009c;
+  text-align: center;
+  font-weight: bold;
+  font-size: clamp(12px, 1.5vw, 14px);
+  transition: all 0.3s ease;
+}
+
+.steps li::after {
+  content: '';
+  position: absolute;
+  left: clamp(9px, 1.5vw, 11px);
+  top: clamp(20px, 2vw, 30px);
+  width: 2px;
+  height: clamp(120%, 130%, 150%);
+  background: #fff;
+}
+
+.steps li:last-child::after {
+  display: none;
+}
+
+.steps li.active span {
+  background: #6549f6;
+  color: #fff;
+}
+
+/* Right Side - Form */
+.formRight {
+  width: 65%;
+  padding: clamp(20px, 3vw, 40px);
+  color: #060606a8;
+  overflow-y: auto;
+  height: 100%;
+}
+
+.formRight h3 {
+  font-family: 'Schibsted Grotesk', sans-serif;
+  font-size: clamp(20px, 3vw, 26px);
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 1.5rem;
+}
+
+.formGroup {
+  display: flex;
+  gap: clamp(10px, 2vw, 15px);
+  margin-bottom: clamp(20px, 2vw, 25px);
+}
+
+.formGroup.full {
+  flex-direction: column;
+}
+
+.formGroup input,
+.formGroup select,
+.formGroup textarea {
+  flex: 1;
+  padding: clamp(10px, 2vw, 12px);
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  outline: none;
+  font-family: 'DM Sans', sans-serif;
+  font-size: clamp(12px, 2vw, 14px);
+  background: rgba(255, 255, 255, 0.95);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.formGroup input:focus,
+.formGroup select:focus,
+.formGroup textarea:focus {
+  border-color: #6549f6;
+  box-shadow: 0 0 0 3px rgba(101, 73, 246, 0.1);
+}
+
+.formGroup input::placeholder,
+.formGroup textarea::placeholder {
+  color: #888;
+}
+
+.formGroup select {
+  color: #666;
+  cursor: pointer;
+}
+
+.formGroup select:valid {
+  color: #000;
+}
+
+.formGroup select option[disabled] {
+  color: #888;
+}
+
+.formGroup textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* File Upload Labels */
+.fileLabel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.95);
+  border: 2px dashed #ddd;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  font-size: clamp(12px, 2vw, 14px);
+  color: #333;
+  transition: all 0.3s ease;
+}
+
+.fileLabel:hover {
+  border-color: #6549f6;
+  background: rgba(101, 73, 246, 0.05);
+}
+
+.fileLabel input[type="file"] {
+  padding: 0;
+  font-size: 12px;
+  background: transparent;
+  border: none;
+}
+
+.fileLabel input[type="file"]::file-selector-button {
+  padding: 8px 16px;
+  background: linear-gradient(135deg, #f05f31, #6549f6);
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  transition: all 0.3s ease;
+}
+
+.fileLabel input[type="file"]::file-selector-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(101, 73, 246, 0.3);
+}
+
+/* Buttons */
+.buttonGroup {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1.5rem;
+}
+
+.btn {
+  background: #f44336;
+  color: #fff;
+  padding: clamp(10px, 2vw, 12px) clamp(20px, 4vw, 30px);
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  font-size: clamp(14px, 2.5vw, 16px);
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn:hover {
+  background: #d32f2f;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(244, 67, 54, 0.4);
+}
+
+.btnPrev {
+  background: transparent;
+  border: 2px solid #fff;
+  color: #fff;
+}
+
+.btnPrev:hover {
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+}
+
+/* Scrollbar */
+.formRight::-webkit-scrollbar {
+  width: clamp(6px, 1vw, 8px);
+}
+
+.formRight::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.formRight::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: clamp(2px, 0.5vw, 4px);
+}
+
+.formRight::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.formRight {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+}
+
+/* Responsive - Mobile */
+@media (max-width: 480px) {
+  .formContainer {
+    flex-direction: column;
+    width: 90%;
+    height: auto;
+    min-height: 90vh;
+  }
+
+  .formLeft {
+    width: 100%;
+    margin: 0 0 clamp(10px, 2vw, 20px) 0;
+    padding: clamp(15px, 3vw, 20px);
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-left-radius: 0;
+  }
+
+  .formLeft h2 {
+    font-size: clamp(16px, 4vw, 18px);
+    margin-bottom: clamp(15px, 2vw, 20px);
+  }
+
+  .steps li {
+    margin: clamp(20px, 4vw, 30px) 0;
+    padding-left: clamp(20px, 3vw, 30px);
+    font-size: clamp(12px, 3vw, 14px);
+  }
+
+  .steps li span {
+    width: clamp(15px, 2.5vw, 20px);
+    height: clamp(15px, 2.5vw, 20px);
+    line-height: clamp(15px, 2.5vw, 20px);
+  }
+
+  .steps li::after {
+    left: clamp(7px, 1.5vw, 9px);
+    top: clamp(15px, 2vw, 20px);
+    height: clamp(110%, 120%, 130%);
+  }
+
+  .formRight {
+    width: 100%;
+    padding: clamp(15px, 2vw, 20px);
+    border-bottom-left-radius: 15px;
+    border-top-right-radius: 0;
+  }
+
+  .formGroup {
+    flex-direction: column;
+    gap: clamp(10px, 2vw, 15px);
+    margin-bottom: clamp(15px, 2vw, 20px);
+  }
+
+  .formGroup input,
+  .formGroup select {
+    padding: clamp(8px, 2vw, 12px);
+    font-size: clamp(12px, 2.5vw, 14px);
+  }
+
+  .btn {
+    padding: clamp(8px, 2vw, 12px) clamp(20px, 4vw, 30px);
+    font-size: clamp(14px, 2.5vw, 16px);
+    margin: clamp(10px, 2vw, 15px) 5px 0 5px;
+  }
+
+  .buttonGroup {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .buttonGroup .btn {
+    width: 100%;
+  }
+}
+
+/* Responsive - Tablet */
+@media (min-width: 481px) and (max-width: 768px) {
+  .formContainer {
+    flex-direction: column;
+    width: 85%;
+    height: auto;
+    min-height: 85vh;
+  }
+
+  .formLeft {
+    width: 100%;
+    margin: 0 0 clamp(15px, 2vw, 20px) 0;
+    padding: clamp(20px, 3vw, 30px);
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-left-radius: 0;
+  }
+
+  .formRight {
+    width: 100%;
+    padding: clamp(20px, 3vw, 30px);
+    border-bottom-left-radius: 15px;
+    border-top-right-radius: 0;
+  }
+
+  .steps li {
+    margin: clamp(30px, 4vw, 40px) 0;
+    font-size: clamp(13px, 2vw, 14px);
+  }
+
+  .formGroup {
+    gap: clamp(12px, 2vw, 15px);
+    margin-bottom: clamp(20px, 2vw, 25px);
+  }
+}
+
+/* Responsive - Small Desktop */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .formContainer {
+    width: 75%;
+    height: 85vh;
+  }
+
+  .formLeft {
+    padding: clamp(25px, 3vw, 35px) clamp(15px, 2vw, 20px);
+  }
+
+  .formRight {
+    padding: clamp(25px, 3vw, 35px);
+  }
+
+  .steps li {
+    margin: clamp(40px, 5vw, 50px) 0;
+    font-size: clamp(15px, 2vw, 16px);
+  }
+}
+
+/* Responsive - Large Desktop */
+@media (min-width: 1025px) {
+  .formContainer {
+    width: 70%;
+    height: 80vh;
+  }
+
+  .formLeft {
+    padding: clamp(30px, 3vw, 40px) clamp(15px, 2vw, 20px);
+  }
+
+  .formRight {
+    padding: clamp(30px, 3vw, 40px);
+  }
+}

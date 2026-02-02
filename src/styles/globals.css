@@ -1,0 +1,199 @@
+@import url('https://fonts.googleapis.com/css2?family=Audiowide&family=DM+Sans:wght@400;500;600;700&family=Figtree:wght@400;500;600;700&family=Schibsted+Grotesk:wght@400;500;600;700;800&display=swap');
+
+/* CSS Variables */
+:root {
+  /* Background Colors */
+  --bg-primary: #0b0f14;
+  --bg-secondary: #1a1a1a;
+  --bg-card: rgba(26, 26, 26, 0.8);
+  --bg-glass: rgba(11, 15, 20, 0.7);
+
+  /* Text Colors */
+  --text-primary: #f0f0f0;
+  --text-secondary: rgba(240, 240, 240, 0.8);
+  --text-muted: #6b7280;
+
+  /* Accent Colors */
+  --accent-teal: #0ea5a8;
+  --accent-orange: #f97316;
+  --accent-purple: #a855f7;
+  --accent-blue: #1e90ff;
+  --accent-pink: #f76bcd;
+
+  /* Gradients */
+  --gradient-primary: linear-gradient(90deg, #0ea5a8, #f97316);
+  --gradient-secondary: linear-gradient(135deg, #f97316, #a855f7);
+  --gradient-card: linear-gradient(135deg, #6549F6, #f97316, #f7c649);
+
+  /* Shadows */
+  --shadow-base: 0 6px 18px rgba(0, 0, 0, 0.18);
+  --shadow-hover: 0 12px 32px rgba(14, 165, 168, 0.4);
+  --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.3);
+  --shadow-inset: 0 8px 24px rgba(0, 0, 0, 0.25) inset;
+
+  /* Border Radius */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-xl: 30px;
+  --radius-full: 9999px;
+
+  /* Container */
+  --container-max: 1440px;
+}
+
+/* Reset */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--text-primary);
+  background-color: var(--bg-primary);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Schibsted Grotesk', sans-serif;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--text-primary);
+}
+
+p {
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+}
+
+a {
+  color: var(--accent-teal);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: var(--accent-orange);
+}
+
+/* Images */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Lists */
+ul, ol {
+  list-style: none;
+}
+
+/* Forms */
+input,
+textarea,
+select {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #6549f6;
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #f05f31;
+}
+
+/* Selection */
+::selection {
+  background: #6549f6;
+  color: var(--bg-primary);
+}
+
+/* Scroll Reveal Animation */
+.reveal {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Marquee Animations */
+@keyframes marquee-left {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes marquee-right {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+/* Focus Styles */
+*:focus-visible {
+  outline: 2px solid #6549f6;
+  outline-offset: 2px;
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* App Container */
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app main {
+  flex: 1;
+}

@@ -1,0 +1,221 @@
+.section {
+  padding: 80px 0;
+  background: var(--bg-primary);
+  overflow: hidden;
+}
+
+.container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.label {
+  display: inline-block;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 12px;
+}
+
+.title {
+  font-family: 'Schibsted Grotesk', sans-serif;
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 16px;
+}
+
+.highlight {
+  color: #ffffff;
+}
+
+.subtitle {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1rem;
+  color: #ffffff;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Cards Carousel */
+.carouselWrapper {
+  overflow: hidden;
+  padding: 60px 0;
+}
+
+.cardsTrack {
+  display: flex;
+  gap: 24px;
+  flex-wrap: nowrap;
+  justify-content: center;
+}
+
+.statCard {
+  flex: 1 1 0;
+  max-width: 302px;
+  min-height: 280px;
+  background: linear-gradient(to top right, #6549F6 0%, #FF611D 50%, #FFAA00 100%);
+  border-radius: 1rem;
+  padding: 1.5rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease;
+  cursor: pointer;
+  outline: 3px solid transparent;
+  outline-offset: 4px;
+}
+
+/* Staggered layout - zigzag pattern */
+.cardUp {
+  margin-top: -3.75rem;
+}
+
+.cardDown {
+  margin-top: 1.25rem;
+}
+
+.statCard:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 12px 24px rgba(249, 115, 22, 0.3);
+}
+
+.cardIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+  color: #ffffff;
+}
+
+.cardTitle {
+  font-family: 'Schibsted Grotesk', sans-serif;
+  font-size: 20px;
+  font-weight: 500;
+  color: #ffffff;
+  margin-bottom: 12px;
+}
+
+.cardNumber {
+  font-family: 'Schibsted Grotesk', sans-serif;
+  font-size: 42px;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.cardDescription {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: #ffffff;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Footer with Navigation */
+.footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+.navigation {
+  display: flex;
+  gap: 12px;
+}
+
+.navBtn {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.navBtn:hover {
+  background: linear-gradient(135deg, #6549F6 0%, #FF611D 100%);
+}
+
+.navBtn:hover svg {
+  stroke: #ffffff;
+}
+
+.navBtn svg {
+  width: 24px;
+  height: 24px;
+  stroke: #333;
+  transition: stroke 0.3s ease;
+}
+
+@media (max-width: 1024px) {
+  .cardsTrack {
+    flex-wrap: wrap;
+  }
+
+  .statCard {
+    flex: 0 0 calc(50% - 12px);
+    max-width: none;
+  }
+
+  .cardUp,
+  .cardDown {
+    margin-top: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 60px 0;
+  }
+
+  .container {
+    padding: 0 20px;
+  }
+
+  .carouselWrapper {
+    padding: 40px 0;
+  }
+
+  .cardsTrack {
+    gap: 16px;
+  }
+
+  .statCard {
+    flex: 0 0 calc(100% - 40px);
+    min-width: 260px;
+    min-height: 280px;
+    padding: 24px 20px;
+  }
+
+  .cardUp,
+  .cardDown {
+    margin-top: 0;
+  }
+
+  .cardNumber {
+    font-size: 2.5rem;
+  }
+
+  .footer {
+    justify-content: center;
+  }
+}

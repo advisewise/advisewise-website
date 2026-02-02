@@ -1,0 +1,198 @@
+.section {
+  padding: 5rem 0;
+  background: var(--bg-primary);
+  overflow: hidden;
+}
+
+.container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+/* Header */
+.header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.title {
+  font-family: 'Schibsted Grotesk', sans-serif;
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 1rem;
+}
+
+.subtitle {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.8);
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+/* Carousel */
+.carouselWrapper {
+  overflow: hidden;
+  margin-bottom: 2rem;
+}
+
+.carousel {
+  display: flex;
+  gap: 1.5rem;
+  transition: transform 0.5s ease-in-out;
+}
+
+/* Card */
+.card {
+  flex: 0 0 calc(33.333% - 1rem);
+  min-width: calc(33.333% - 1rem);
+  background: rgba(250, 243, 243, 1);
+  border-radius: 1.5rem;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+.imageWrapper {
+  width: 100%;
+  height: 250px;
+  overflow: hidden;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 1rem;
+  margin: 0;
+  transition: transform 0.3s ease;
+}
+
+.card:hover .image {
+  transform: scale(1.05);
+}
+
+.cardContent {
+  padding: 1.5rem;
+}
+
+.studentName {
+  font-family: 'Figtree', sans-serif;
+  font-size: clamp(1.1rem, 2.5vw, 1.25rem);
+  font-weight: 700;
+  color: #000000;
+  margin-bottom: 0.75rem;
+}
+
+.description {
+  font-family: 'DM Sans', sans-serif;
+  font-size: clamp(0.875rem, 2.3vw, 1rem);
+  color: #333333;
+  line-height: 1.6;
+  margin-bottom: 1.25rem;
+}
+
+/* Tags */
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.languageTag {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #ffffff;
+  background: linear-gradient(69.88deg, #6549F6 2.47%, #FF611D 78.28%);
+  border-radius: 2rem;
+}
+
+.ageTag {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #333333;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid #dddddd;
+  border-radius: 2rem;
+}
+
+/* Navigation */
+.navigation {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.navBtn {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.navBtn:hover {
+  background: linear-gradient(135deg, #6549F6 0%, #FF611D 100%);
+  border-color: transparent;
+}
+
+.navBtn svg {
+  width: 24px;
+  height: 24px;
+  stroke: #ffffff;
+  transition: stroke 0.3s ease;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .card {
+    flex: 0 0 calc(50% - 0.75rem);
+    min-width: calc(50% - 0.75rem);
+  }
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 3rem 0;
+  }
+
+  .container {
+    padding: 0 20px;
+  }
+
+  .card {
+    flex: 0 0 100%;
+    min-width: 100%;
+  }
+
+  .imageWrapper {
+    height: 200px;
+  }
+
+  .navBtn {
+    width: 48px;
+    height: 48px;
+  }
+
+  .navBtn svg {
+    width: 20px;
+    height: 20px;
+  }
+}
