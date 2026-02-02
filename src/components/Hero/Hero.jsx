@@ -28,20 +28,18 @@ const heroSlides = [
 
 const Hero = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [animationState, setAnimationState] = useState('idle'); // 'idle', 'out', 'in'
   const [imagesLoaded, setImagesLoaded] = useState(false);
-  const preloadedImages = useRef([]);
 
   // Preload all hero images on mount
   useEffect(() => {
     let loadedCount = 0;
     const totalImages = heroSlides.length;
 
-    heroSlides.forEach((slide, index) => {
+    heroSlides.forEach((slide) => {
       const img = new Image();
       img.onload = () => {
         loadedCount++;
-        preloadedImages.current[index] = img;
         if (loadedCount === totalImages) {
           setImagesLoaded(true);
         }
@@ -53,37 +51,57 @@ const Hero = () => {
   useEffect(() => {
     if (!imagesLoaded) return;
 
-    const interval = setInterval(() => {
-      // Start transition animation
-      setIsTransitioning(true);
+    const runAnimation = () => {
+      // Start OUT animation
+      setAnimationState('out');
 
-      // After transition completes (2.5s), switch to next image and reset
+      // After out animation (2.5s), switch image and start IN animation
       setTimeout(() => {
         setCurrentIndex((prev) => (prev + 1) % heroSlides.length);
-        setIsTransitioning(false);
+        setAnimationState('in');
       }, 2500);
 
-    }, 5000); // 2.5s visible + 2.5s transition
+      // After in animation (another 2.5s), go back to idle
+      setTimeout(() => {
+        setAnimationState('idle');
+      }, 5000);
+    };
 
-    return () => clearInterval(interval);
+    // Initial delay before first animation
+    const initialDelay = setTimeout(() => {
+      runAnimation();
+    }, 1500);
+
+    // Set up interval for continuous animation
+    // Total cycle: 1.5s pause + 2.5s out + 2.5s in = 6.5s
+    const interval = setInterval(() => {
+      runAnimation();
+    }, 6500);
+
+    return () => {
+      clearTimeout(initialDelay);
+      clearInterval(interval);
+    };
   }, [imagesLoaded]);
 
   return (
     <section id="home" className={styles.hero}>
-      {/* Background Image Layer - zooms and blurs during transition */}
+      {/* Background Image Layer */}
       <div
-        className={`${styles.backgroundImage} ${isTransitioning ? styles.zoomOut : ''}`}
+        className={`${styles.bgLayer} ${animationState === 'out' ? styles.animateOut : ''} ${animationState === 'in' ? styles.animateIn : ''}`}
         style={{ backgroundImage: `url(${heroSlides[currentIndex].image})` }}
       />
 
-      {/* Foreground Image Layer with Donut Mask - continuously rotates */}
+      {/* Foreground Image Layer with Donut Mask */}
       <div
-        className={`${styles.foregroundImage} ${isTransitioning ? styles.zoomOut : ''}`}
+        className={`${styles.fgLayer} ${animationState === 'out' ? styles.animateOut : ''} ${animationState === 'in' ? styles.animateIn : ''}`}
         style={{ backgroundImage: `url(${heroSlides[currentIndex].image})` }}
       />
 
-      {/* Donut Ring - continuously rotating */}
-      <div className={styles.donutRing} />
+      {/* Donut rotating layer */}
+      <div
+        className={`${styles.donutLayer} ${animationState === 'out' ? styles.donutOut : ''} ${animationState === 'in' ? styles.donutIn : ''}`}
+      />
 
       {/* Vignette Overlay for depth */}
       <div className={styles.vignette} />
