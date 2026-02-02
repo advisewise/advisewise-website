@@ -282,8 +282,8 @@
 /* Responsive */
 @media (max-width: 768px) {
   .hero {
-    --donut-outer: min(70vw, 50vh, 300px);
-    --donut-inner: calc(var(--donut-outer) * 0.45);
+    --donut-outer: min(40vw, 35vh, 200px);
+    --donut-inner: calc(var(--donut-outer) * 0.5);
   }
 
   .content {
@@ -291,11 +291,11 @@
   }
 
   .titleMain {
-    font-size: clamp(2rem, 12vw, 3.5rem);
+    font-size: clamp(2rem, 10vw, 3rem);
   }
 
   .subtitle {
-    font-size: 0.9rem;
+    font-size: 0.875rem;
     padding: 0 10px;
   }
 
@@ -343,24 +343,25 @@
 /* Extra small screens */
 @media (max-width: 480px) {
   .hero {
-    --donut-outer: min(65vw, 45vh, 220px);
-    --donut-inner: calc(var(--donut-outer) * 0.4);
+    --donut-outer: min(35vw, 30vh, 150px);
+    --donut-inner: calc(var(--donut-outer) * 0.5);
   }
 
   .titleMain {
-    font-size: clamp(1.8rem, 10vw, 2.5rem);
+    font-size: clamp(1.5rem, 9vw, 2.2rem);
   }
 
   .titleSmall {
-    font-size: 1rem;
+    font-size: 0.9rem;
   }
 
   .subtitle {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
+    line-height: 1.5;
   }
 
   .ctaBtn {
-    padding: 12px 28px;
+    padding: 12px 24px;
     font-size: 14px;
   }
 }

@@ -169,11 +169,13 @@
 @media (max-width: 1024px) {
   .cardsTrack {
     flex-wrap: wrap;
+    justify-content: center;
   }
 
   .statCard {
     flex: 0 0 calc(50% - 12px);
-    max-width: none;
+    max-width: 320px;
+    min-height: 300px;
   }
 
   .cardUp,
@@ -196,14 +198,17 @@
   }
 
   .cardsTrack {
-    gap: 16px;
+    gap: 20px;
+    flex-direction: column;
+    align-items: center;
   }
 
   .statCard {
-    flex: 0 0 calc(100% - 40px);
-    min-width: 260px;
-    min-height: 280px;
-    padding: 24px 20px;
+    flex: 0 0 auto;
+    width: 90%;
+    max-width: 350px;
+    min-height: 320px;
+    padding: 32px 24px;
   }
 
   .cardUp,
@@ -211,8 +216,16 @@
     margin-top: 0;
   }
 
+  .cardTitle {
+    font-size: 22px;
+  }
+
   .cardNumber {
-    font-size: 2.5rem;
+    font-size: 3rem;
+  }
+
+  .cardDescription {
+    font-size: 15px;
   }
 
   .footer {
