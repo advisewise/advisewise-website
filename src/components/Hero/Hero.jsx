@@ -131,17 +131,17 @@ const Hero = () => {
       >
         <div className={styles.testimonialImages}>
           <img
-            src="https://advisewise.clicktobill.com/public/images/girl.png"
+            src="/images/girl.png"
             alt="Student 1"
             className={styles.testimonialImg}
           />
           <img
-            src="https://advisewise.clicktobill.com/public/images/student.png"
+            src="/images/student.png"
             alt="Student 2"
             className={styles.testimonialImg}
           />
           <img
-            src="https://advisewise.clicktobill.com/public/images/student1.png"
+            src="/images/student1.png"
             alt="Student 3"
             className={styles.testimonialImg}
           />
