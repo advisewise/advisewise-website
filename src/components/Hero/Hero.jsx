@@ -32,7 +32,7 @@ const Hero = () => {
   const [isEntering, setIsEntering] = useState(false);
 
   useEffect(() => {
-    const interval = setInterval(() => {
+    const runAnimation = () => {
       // Start exit animation
       setIsExiting(true);
       setIsEntering(false);
@@ -48,10 +48,18 @@ const Hero = () => {
       setTimeout(() => {
         setIsEntering(false);
       }, 5000);
+    };
 
-    }, 7500); // Full cycle
+    // Start first animation after 3 seconds
+    const firstTimeout = setTimeout(runAnimation, 3000);
 
-    return () => clearInterval(interval);
+    // Then run every 7.5 seconds
+    const interval = setInterval(runAnimation, 7500);
+
+    return () => {
+      clearTimeout(firstTimeout);
+      clearInterval(interval);
+    };
   }, []);
 
   return (
