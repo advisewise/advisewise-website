@@ -24,38 +24,56 @@
   transform: scale(1) rotate(0deg);
   filter: blur(0px);
   z-index: 1;
-  will-change: transform, filter;
+  will-change: transform, filter, opacity;
+  opacity: 1;
 }
 
-/* Exit: Image rotates 180°, scales 6.5x, blurs 15px */
+/* Next image layer - starts hidden */
+.backgroundImage.nextImage {
+  opacity: 0;
+  z-index: 0;
+}
+
+/* Exit: Current image rotates 180°, scales 6.5x, blurs 15px and fades out */
 .backgroundImage.exitAnim {
   animation: imageExit var(--animation-duration) ease-in-out both;
 }
 
-/* Enter: Image starts rotated/zoomed/blurred, returns to normal */
-.backgroundImage.enterAnim {
-  animation: imageEnter var(--animation-duration) ease-in-out both;
+/* Fade in: Next image fades in while animating from zoomed/rotated state */
+.backgroundImage.fadeIn {
+  animation: imageFadeIn var(--animation-duration) ease-in-out both;
+  z-index: 1;
 }
 
 @keyframes imageExit {
   0% {
     transform: scale(1) rotate(0deg);
     filter: blur(0px);
+    opacity: 1;
+  }
+  50% {
+    opacity: 1;
   }
   100% {
     transform: scale(6.5) rotate(180deg);
     filter: blur(15px);
+    opacity: 0;
   }
 }
 
-@keyframes imageEnter {
+@keyframes imageFadeIn {
   0% {
-    transform: scale(6.5) rotate(180deg);
+    transform: scale(6.5) rotate(-180deg);
     filter: blur(15px);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
   }
   100% {
     transform: scale(1) rotate(0deg);
     filter: blur(0px);
+    opacity: 1;
   }
 }
 
@@ -67,7 +85,8 @@
   background-position: center;
   background-repeat: no-repeat;
   z-index: 2;
-  will-change: transform;
+  will-change: transform, opacity;
+  opacity: 1;
 
   /* Donut mask - transparent center, visible ring, fades to transparent */
   -webkit-mask-image: radial-gradient(
@@ -88,31 +107,48 @@
   );
 }
 
-/* Foreground Exit: rotates -180° (opposite to background) */
+/* Next foreground layer - starts hidden */
+.foregroundImage.nextImage {
+  opacity: 0;
+  z-index: 1;
+}
+
+/* Foreground Exit: rotates -180° (opposite to background) and fades out */
 .foregroundImage.exitAnim {
   animation: donutExit var(--animation-duration) ease-in-out both;
 }
 
-/* Foreground Enter: rotates from -180° back to 0° */
-.foregroundImage.enterAnim {
-  animation: donutEnter var(--animation-duration) ease-in-out both;
+/* Foreground fade in: rotates from -180° to 0° */
+.foregroundImage.fadeIn {
+  animation: donutFadeIn var(--animation-duration) ease-in-out both;
+  z-index: 2;
 }
 
 @keyframes donutExit {
   0% {
     transform: rotate(0deg);
+    opacity: 1;
+  }
+  50% {
+    opacity: 1;
   }
   100% {
     transform: rotate(-180deg);
+    opacity: 0;
   }
 }
 
-@keyframes donutEnter {
+@keyframes donutFadeIn {
   0% {
-    transform: rotate(-180deg);
+    transform: rotate(180deg);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
   }
   100% {
     transform: rotate(0deg);
+    opacity: 1;
   }
 }
 
@@ -283,6 +319,7 @@
 @media (max-width: 768px) {
   .hero {
     --donut-outer: min(80vw, 80vh, 400px);
+    --animation-duration: 2s;
   }
 
   .content {
@@ -293,39 +330,59 @@
     0% {
       transform: scale(1) rotate(0deg);
       filter: blur(0px);
+      opacity: 1;
+    }
+    50% {
+      opacity: 1;
     }
     100% {
       transform: scale(4) rotate(90deg);
       filter: blur(10px);
+      opacity: 0;
     }
   }
 
-  @keyframes imageEnter {
+  @keyframes imageFadeIn {
     0% {
-      transform: scale(4) rotate(90deg);
+      transform: scale(4) rotate(-90deg);
       filter: blur(10px);
+      opacity: 0;
+    }
+    50% {
+      opacity: 1;
     }
     100% {
       transform: scale(1) rotate(0deg);
       filter: blur(0px);
+      opacity: 1;
     }
   }
 
   @keyframes donutExit {
     0% {
       transform: rotate(0deg);
+      opacity: 1;
+    }
+    50% {
+      opacity: 1;
     }
     100% {
       transform: rotate(-90deg);
+      opacity: 0;
     }
   }
 
-  @keyframes donutEnter {
+  @keyframes donutFadeIn {
     0% {
-      transform: rotate(-90deg);
+      transform: rotate(90deg);
+      opacity: 0;
+    }
+    50% {
+      opacity: 1;
     }
     100% {
       transform: rotate(0deg);
+      opacity: 1;
     }
   }
 }

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import styles from './Hero.module.css';
 
@@ -28,44 +28,76 @@ const heroSlides = [
 
 const Hero = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [isExiting, setIsExiting] = useState(false);
-  const [isEntering, setIsEntering] = useState(false);
+  const [nextIndex, setNextIndex] = useState(1);
+  const [isAnimating, setIsAnimating] = useState(false);
+  const [imagesLoaded, setImagesLoaded] = useState(false);
+  const preloadedImages = useRef([]);
+
+  // Preload all hero images on mount
+  useEffect(() => {
+    let loadedCount = 0;
+    const totalImages = heroSlides.length;
+
+    heroSlides.forEach((slide, index) => {
+      const img = new Image();
+      img.onload = () => {
+        loadedCount++;
+        preloadedImages.current[index] = img;
+        if (loadedCount === totalImages) {
+          setImagesLoaded(true);
+        }
+      };
+      img.src = slide.image;
+    });
+  }, []);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      // Start exit animation
-      setIsExiting(true);
-      setIsEntering(false);
+    if (!imagesLoaded) return;
 
-      // After exit animation (2.5s), switch image and start entry
+    const interval = setInterval(() => {
+      // Start animation - both layers animate together
+      setIsAnimating(true);
+
+      // At the midpoint (1.25s), swap the images
       setTimeout(() => {
-        setCurrentIndex((prev) => (prev + 1) % heroSlides.length);
-        setIsExiting(false);
-        setIsEntering(true);
+        setCurrentIndex(nextIndex);
+        setNextIndex((nextIndex + 1) % heroSlides.length);
+      }, 1250);
+
+      // After full animation (2.5s), reset
+      setTimeout(() => {
+        setIsAnimating(false);
       }, 2500);
 
-      // After entry animation (another 2.5s), reset
-      setTimeout(() => {
-        setIsEntering(false);
-      }, 5000);
-
-    }, 7500); // Full cycle
+    }, 5000); // Full cycle: 2.5s visible + 2.5s animation
 
     return () => clearInterval(interval);
-  }, []);
+  }, [imagesLoaded, nextIndex]);
 
   return (
     <section id="home" className={styles.hero}>
-      {/* Background Image Layer - rotates and zooms out */}
+      {/* Current Background Image Layer */}
       <div
-        className={`${styles.backgroundImage} ${isExiting ? styles.exitAnim : ''} ${isEntering ? styles.enterAnim : ''}`}
+        className={`${styles.backgroundImage} ${isAnimating ? styles.exitAnim : ''}`}
         style={{ backgroundImage: `url(${heroSlides[currentIndex].image})` }}
       />
 
-      {/* Foreground Image Layer with Donut Mask - counter-rotates */}
+      {/* Next Background Image Layer - fades in during transition */}
       <div
-        className={`${styles.foregroundImage} ${isExiting ? styles.exitAnim : ''} ${isEntering ? styles.enterAnim : ''}`}
+        className={`${styles.backgroundImage} ${styles.nextImage} ${isAnimating ? styles.fadeIn : ''}`}
+        style={{ backgroundImage: `url(${heroSlides[nextIndex].image})` }}
+      />
+
+      {/* Current Foreground Image Layer with Donut Mask */}
+      <div
+        className={`${styles.foregroundImage} ${isAnimating ? styles.exitAnim : ''}`}
         style={{ backgroundImage: `url(${heroSlides[currentIndex].image})` }}
+      />
+
+      {/* Next Foreground Image Layer - fades in during transition */}
+      <div
+        className={`${styles.foregroundImage} ${styles.nextImage} ${isAnimating ? styles.fadeIn : ''}`}
+        style={{ backgroundImage: `url(${heroSlides[nextIndex].image})` }}
       />
 
       {/* Vignette Overlay for depth */}
