@@ -50,8 +50,8 @@ const Hero = () => {
       }, 5000);
     };
 
-    // Start first animation after 3 seconds
-    const firstTimeout = setTimeout(runAnimation, 3000);
+    // Start first animation after 1.5 seconds
+    const firstTimeout = setTimeout(runAnimation, 1500);
 
     // Then run every 7.5 seconds
     const interval = setInterval(runAnimation, 7500);
