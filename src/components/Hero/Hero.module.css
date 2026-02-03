@@ -282,7 +282,7 @@
 /* Responsive */
 @media (max-width: 768px) {
   .hero {
-    --donut-outer: min(38vw, 38vh, 280px);
+    --donut-outer: min(45vw, 45vh, 320px);
     --donut-inner: calc(var(--donut-outer) * 0.5);
   }
 
@@ -343,7 +343,7 @@
 /* Extra small screens */
 @media (max-width: 480px) {
   .hero {
-    --donut-outer: min(38vw, 38vh, 250px);
+    --donut-outer: min(42vw, 42vh, 280px);
     --donut-inner: calc(var(--donut-outer) * 0.5);
   }
 
