@@ -305,15 +305,15 @@
       filter: blur(0px);
     }
     100% {
-      transform: scale(4) rotate(90deg);
-      filter: blur(10px);
+      transform: scale(6.5) rotate(180deg);
+      filter: blur(15px);
     }
   }
 
   @keyframes imageEnter {
     0% {
-      transform: scale(4) rotate(90deg);
-      filter: blur(10px);
+      transform: scale(6.5) rotate(180deg);
+      filter: blur(15px);
     }
     100% {
       transform: scale(1) rotate(0deg);
@@ -326,13 +326,13 @@
       transform: rotate(0deg);
     }
     100% {
-      transform: rotate(-90deg);
+      transform: rotate(-180deg);
     }
   }
 
   @keyframes donutEnter {
     0% {
-      transform: rotate(-90deg);
+      transform: rotate(-180deg);
     }
     100% {
       transform: rotate(0deg);

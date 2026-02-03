@@ -480,7 +480,7 @@
   }
 
   .visionCard {
-    min-height: 60vh;
+    min-height: 70vh;
     padding: 2.5rem 1.5rem;
     top: 70px;
   }
@@ -503,7 +503,7 @@
 
   .benefitCard {
     flex: 0 0 350px;
-    height: 420px;
+    height: 480px;
   }
 
   .teamCard {
