@@ -480,9 +480,11 @@
   }
 
   .visionCard {
-    min-height: 80vh;
-    padding: 3rem 1.5rem;
+    min-height: 85vh;
+    padding: 3rem 1.5rem 4rem 1.5rem;
     top: 70px;
+    clip-path: none;
+    border-radius: 20px;
   }
 
   .visionCard h3 {
