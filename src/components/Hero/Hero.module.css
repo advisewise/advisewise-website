@@ -286,6 +286,12 @@
     --donut-inner: calc(var(--donut-outer) * 0.5);
   }
 
+  .backgroundImage,
+  .foregroundImage {
+    background-size: 150%;
+    background-position: center center;
+  }
+
   .content {
     padding: 0 20px;
   }
