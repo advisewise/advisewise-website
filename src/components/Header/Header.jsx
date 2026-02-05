@@ -9,7 +9,7 @@ const navLinks = [
   { name: 'Services', href: '/services', isRoute: true },
   { name: 'MBBS', href: '/#mbbs', isRoute: false },
   { name: 'Countries', href: '/#countries', isRoute: false },
-  { name: 'Blog', href: '/#blog', isRoute: false },
+  { name: 'Blog', href: '/blog', isRoute: true },
   { name: 'Contact Us', href: '/#contact', isRoute: false },
 ];
 

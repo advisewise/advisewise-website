@@ -5,6 +5,8 @@ import Home from './pages/Home';
 import About from './pages/About';
 import Services from './pages/Services';
 import Login from './pages/Login';
+import Blog from './pages/Blog';
+import BlogPost from './pages/BlogPost';
 import './styles/globals.css';
 
 function App() {
@@ -20,6 +22,8 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/services" element={<Services />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/blog/:slug" element={<BlogPost />} />
         </Routes>
       </main>
       {!isLoginPage && <Footer />}
